@@ -1,0 +1,23 @@
+{
+	"extends": "@repo/typescript-config/tsconfig.base.json",
+	"compilerOptions": {
+		"module": "ESnext",
+		"lib": [
+			"ES2022",
+			"DOM",
+			"DOM.Iterable"
+		],
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"moduleResolution": "bundler",
+		"jsx": "preserve",
+		"jsxImportSource": "ripple",
+		"noEmit": true,
+		"isolatedModules": true,
+	},
+	"plugins": [
+		{
+			"name": "@ripple-ts/typescript-plugin"
+		}
+	]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "server",
+  "version": "1.0.50",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts --env-file=.env"
+  },
+  "dependencies": {
+    "@elysiajs/openapi": "^1.4.13",
+    "@paralleldrive/cuid2": "^3.0.6",
+    "drizzle-orm": "^0.45.1",
+    "drizzle-typebox": "^0.3.3",
+    "elysia": "latest"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "module": "src/index.js",
+  "overrides": {
+    "@sinclair/typebox": "0.34.0"
+  }
+}
