@@ -10,7 +10,8 @@
     "@paralleldrive/cuid2": "^3.0.6",
     "drizzle-orm": "^0.45.1",
     "drizzle-typebox": "^0.3.3",
-    "elysia": "latest"
+    "elysia": "latest",
+    "logixlysia": "^6.1.0"
   },
   "devDependencies": {
     "bun-types": "latest"
