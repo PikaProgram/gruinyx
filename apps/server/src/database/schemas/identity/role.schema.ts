@@ -1,5 +1,5 @@
 import { createId } from "@paralleldrive/cuid2";
-import { pgEnum, pgTable, timestamp, varchar } from "drizzle-orm/pg-core";
+import { json, pgEnum, pgTable, timestamp, varchar } from "drizzle-orm/pg-core";
 import { userTable } from "./user.schema";
 
 export const roleEnum = pgEnum('role_name', ['STUDENT', 'INSTRUCTOR', 'ADMIN', 'GUEST']);
@@ -12,6 +12,9 @@ export const roleTable = pgTable(
       .primaryKey(),
     roleName: roleEnum()
       .default('GUEST')
+      .notNull(),
+    permissions: json().$type<string[]>()
+      .default([])
       .notNull(),
     description: varchar('description'),
     createdAt: timestamp('created_at')
