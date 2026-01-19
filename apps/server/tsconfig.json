@@ -7,6 +7,11 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@plugins/*": ["./src/plugin/*"],
+      "@database/*": ["./src/database/*"],
+      "@env": ["./src/utils/env.ts"],
+    }
   }
 }
