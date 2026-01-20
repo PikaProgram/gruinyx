@@ -2,6 +2,7 @@ import type { NeonDatabase } from "drizzle-orm/neon-serverless";
 import type { CreateUserBody, SelectUserParams } from "./auth.schema";
 import { userTable, type Table } from "@database/schemas";
 import { eq } from "drizzle-orm";
+import type { AccessTokenPlugin, RefreshTokenPlugin } from "@plugins/provider/jwt.plugin";
 
 export abstract class AuthService {
   static async getUser(userQuery: SelectUserParams, db: NeonDatabase<Table>) {
@@ -43,13 +44,11 @@ export abstract class AuthService {
     }
   }
 
-  static async authenticateUser(username: string, password: string, db: NeonDatabase<Table>) {
-    const [user] = await db
-      .select()
-      .from(userTable)
-      .where(eq(userTable.username, username))
-      .limit(1);
-
+  static async authenticateUser(email: string, password: string, db: NeonDatabase<Table>) {
+    
+    
+    const user = await this.getUser({ email }, db);
+    
     if (!user) {
       return null;
     }
@@ -60,5 +59,33 @@ export abstract class AuthService {
     }
 
     return user;
+  }
+
+  static async generateTokenPair(userId: string, accessTokenPlugin: AccessTokenPlugin, refreshTokenPlugin: RefreshTokenPlugin) {
+    const accessToken = await accessTokenPlugin.sign({ sub: userId });
+    const refreshToken = await refreshTokenPlugin.sign({ sub: userId });
+
+    return {
+      accessToken,
+      refreshToken,
+    };
+  }
+
+  static async validateAccessToken(token: string, accessTokenPlugin: AccessTokenPlugin) {
+    try {
+      const payload = await accessTokenPlugin.verify(token);
+      return payload;
+    } catch {
+      return null;
+    }
+  }
+
+  static async validateRefreshToken(token: string, refreshTokenPlugin: RefreshTokenPlugin) {
+    try {
+      const payload = await refreshTokenPlugin.verify(token);
+      return payload;
+    } catch {
+      return null;
+    }
   }
 }

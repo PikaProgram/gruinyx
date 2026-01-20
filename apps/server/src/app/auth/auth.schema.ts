@@ -17,3 +17,14 @@ export type CreateUserBody = Static<typeof createUserBodySchema>;
 
 export const selectUserParamsSchema = t.Omit(_selectUser, ['password', 'createdAt']);
 export type SelectUserParams = Static<typeof selectUserParamsSchema>;
+
+export const loginBodySchema = t.Object({
+  email: t.String({ format: 'email' }),
+  password: t.String(),
+});
+export type LoginBody = Static<typeof loginBodySchema>;
+
+export interface JWTPair {
+  accessToken: string;
+  refreshToken: string;
+}
