@@ -1,8 +1,8 @@
 import Elysia from "elysia";
-import { drizzlePlugin } from "@plugins/provider/db.plugin";
+import { drizzlePlugin } from "@/plugin/provider/db.plugin";
 import { createUserBodySchema, loginBodySchema } from "./auth.schema";
 import { AuthService } from "./auth.service";
-import { accessTokenPlugin, refreshTokenPlugin } from "@plugins/provider/jwt.plugin";
+import { accessTokenPlugin, refreshTokenPlugin } from "@/plugin/provider/jwt.plugin";
 import { env } from "@env";
 import { authGuard } from "../../plugin/middleware/auth.guard";
 

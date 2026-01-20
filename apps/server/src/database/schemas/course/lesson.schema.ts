@@ -1,6 +1,6 @@
 import { createId } from "@paralleldrive/cuid2";
 import { pgTable, varchar, pgEnum } from "drizzle-orm/pg-core";
-import { moduleTable } from "@database/schemas";
+import { moduleTable } from "@/database/schemas";
 
 export const lessonTypeEnum = pgEnum('lesson_type', ['VIDEO', 'ARTICLE', 'PRESENTATION', 'QUIZ', 'ASSIGNMENT']);
 

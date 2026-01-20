@@ -1,4 +1,4 @@
-import { accessTokenPlugin } from "@plugins/provider/jwt.plugin";
+import { accessTokenPlugin } from "@/plugin/provider/jwt.plugin";
 import type { Elysia } from "elysia";
 
 export function authGuard(app: Elysia) {
@@ -16,7 +16,7 @@ export function authGuard(app: Elysia) {
         throw new Error("Unauthorized");
       }
 
-      const userId = payload.sub;
+      const userId: string = payload.sub!;
 
       return { userId };
     });

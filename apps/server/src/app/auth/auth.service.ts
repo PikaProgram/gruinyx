@@ -1,8 +1,8 @@
 import type { NeonDatabase } from "drizzle-orm/neon-serverless";
 import type { CreateUserBody, SelectUserParams } from "./auth.schema";
-import { userTable, type Table } from "@database/schemas";
+import { userTable, type Table } from "@/database/schemas";
 import { eq } from "drizzle-orm";
-import type { AccessTokenPlugin, RefreshTokenPlugin } from "@plugins/provider/jwt.plugin";
+import type { AccessTokenPlugin, RefreshTokenPlugin } from "@/plugin/provider/jwt.plugin";
 
 export abstract class AuthService {
   static async getUser(userQuery: SelectUserParams, db: NeonDatabase<Table>) {

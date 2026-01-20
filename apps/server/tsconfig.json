@@ -9,8 +9,7 @@
     "strict": true,
     "skipLibCheck": true,
     "paths": {
-      "@plugins/*": ["./src/plugin/*"],
-      "@database/*": ["./src/database/*"],
+      "@/*": ["./src/*"],
       "@env": ["./src/utils/env.ts"],
     }
   }

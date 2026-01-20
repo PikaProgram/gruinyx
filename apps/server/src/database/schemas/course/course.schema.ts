@@ -1,6 +1,6 @@
 import { createId } from "@paralleldrive/cuid2";
 import { numeric, pgEnum, pgTable, timestamp, varchar } from "drizzle-orm/pg-core";
-import { userTable } from "@database/schemas";
+import { userTable } from "@/database/schemas";
 
 export const courseStatusEnum = pgEnum('course_status', ['DRAFT', 'PUBLISHED', 'ARCHIVED']);
 
