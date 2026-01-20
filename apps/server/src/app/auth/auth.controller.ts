@@ -1,4 +1,4 @@
-import Elysia from "elysia";
+import Elysia, { t } from "elysia";
 import { drizzlePlugin } from "@/plugin/provider/db.plugin";
 import { createUserBodySchema, loginBodySchema } from "./auth.schema";
 import { AuthService } from "./auth.service";
@@ -49,7 +49,10 @@ authController.post("/login", async ({ body, db, accessToken, refreshToken, cook
   detail: {
     description: "Authenticate a user and return user data",
     tags: ["Auth"],
-  }
+  },
+  cookie: t.Object({
+    refresh_token: t.String(),
+  })
 });
 
 authController.post("/register", async ({ body, db }) => {
@@ -86,7 +89,10 @@ authController.get("/refresh", async ({ cookie: { refresh_token }, accessToken, 
   detail: {
     description: "Refresh access token",
     tags: ["Auth"],
-  }
+  },
+  cookie: t.Object({
+    refresh_token: t.String(),
+  })
 });
 
 authController.post("/logout", ({ cookie: { refresh_token } }) => {
@@ -96,7 +102,10 @@ authController.post("/logout", ({ cookie: { refresh_token } }) => {
   detail: {
     description: "Logout user",
     tags: ["Auth"],
-  }
+  },
+  cookie: t.Object({
+    refresh_token: t.String(),
+  })
 });
 
 authController
