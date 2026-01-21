@@ -4,7 +4,8 @@ import { createUserBodySchema, loginBodySchema } from "./auth.schema";
 import { AuthService } from "./auth.service";
 import { accessTokenPlugin, refreshTokenPlugin } from "@/plugin/provider/jwt.plugin";
 import { env } from "@env";
-import { authGuard } from "../../plugin/middleware/auth.guard";
+import { authGuard } from "@/plugin/middleware/auth.guard";
+import { HTTPException } from "@/plugin/handler/error.handler";
 
 export const authController = new Elysia({
   prefix: "/auth",
@@ -17,7 +18,7 @@ authController.post("/login", async ({ body, db, accessToken, refreshToken, cook
   const user = await AuthService.authenticateUser(body.email, body.password, db);
 
   if (!user) {
-    return { error: "Invalid email or password" };
+    throw new HTTPException("Invalid email or password", "UNAUTHORIZED");
   }
 
   // Generate JWT token pair
@@ -70,13 +71,13 @@ authController.get("/refresh", async ({ cookie: { refresh_token }, accessToken, 
   const token = refresh_token!.value;
 
   if (!token) {
-    throw new Error("No refresh token");
+    throw new HTTPException("No refresh token", "UNAUTHORIZED");
   }
 
   const payload = await AuthService.validateRefreshToken(token as string, refreshToken);
 
   if (!payload) {
-    throw new Error("Invalid or expired refresh token");
+    throw new HTTPException("Invalid or expired refresh token", "UNAUTHORIZED");
   }
 
   // Generate a new access token
@@ -114,7 +115,7 @@ authController
     const user = await AuthService.getUser({ id: String(userId) }, db);
 
     if (!user) {
-      throw new Error("User not found");
+      throw new HTTPException("User not found", "NOT_FOUND");
     }
 
     return {
