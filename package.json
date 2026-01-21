@@ -1,13 +1,5 @@
 {
   "name": "gruinyx",
-  "private": true,
-  "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "prettier --write .",
-    "check-types": "turbo run check-types"
-  },
   "devDependencies": {
     "prettier": "^3.7.4",
     "turbo": "^2.7.4"
@@ -16,11 +8,16 @@
     "node": ">=18"
   },
   "packageManager": "bun@1.2.23",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write .",
+    "check-types": "turbo run check-types"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"
-  ],
-  "dependencies": {
-    "pino": "^10.2.1"
-  }
+  ]
 }
